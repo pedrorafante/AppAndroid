@@ -35,7 +35,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/username"
 
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="8dp"
                 android:hint="Usuário"
                 android:padding="8dp"
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/password"
-                android:drawableLeft="@drawable/baseline_lock_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Senha"
                 android:padding="8dp"
