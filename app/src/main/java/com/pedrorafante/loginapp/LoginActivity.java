@@ -14,12 +14,15 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     Button loginButton;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        databaseHelper = new DatabaseHelper(this);
+        databaseHelper.insertUser(); // Rodar so uma vez pq se nao toda vez que executar ira criar um usuário
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
