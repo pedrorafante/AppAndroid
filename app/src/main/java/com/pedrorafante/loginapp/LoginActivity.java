@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         databaseHelper = new DatabaseHelper(this);
-        databaseHelper.insertUser(); // Rodar so uma vez pq se nao toda vez que executar ira criar um usuário
+//        databaseHelper.insertUser(); // Rodar so uma vez pq se nao toda vez que executar ira criar um usuário
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkAllFields()) {
-                    if (username.getText().toString().equals("user") && password.getText().toString().equals("1234")) {
+                    if (databaseHelper.checkUserPassword(username.getText().toString(), password.getText().toString())) {
                         Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                         startActivity(intent);
                         finish();
@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private boolean checkAllFields() {
         if (username.getText().toString().isEmpty()) {

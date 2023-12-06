@@ -2,6 +2,7 @@ package com.pedrorafante.loginapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -34,14 +35,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             sqLiteDatabase.execSQL(tableUser);
 
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("user", "pedro");
+            contentValues.put("senha", "1234");
+            sqLiteDatabase.insert("usuario", null, contentValues);
+            insertUser();
         }catch (SQLException e){
             Log.e("DB_LOG", "onCreate: " + e.getLocalizedMessage());
         }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //Sempre quando queremos fazer alguma alteracao no banco de dados colocamos aqui
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop Table if exists usuario");
+        onCreate(db);
     }
 
     public void insertUser(){
@@ -50,6 +57,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("user", "pedro");
         contentValues.put("senha", "1234");
         MyDatabase.insert("usuario", null, contentValues);
+    }
+
+    public Boolean checkUserPassword(String username, String password){
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        Cursor cursor = MyDatabase.rawQuery("Select * from usuario where user = ? and senha = ?", new String[]{username, password});
+        if (cursor.getCount() > 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }
