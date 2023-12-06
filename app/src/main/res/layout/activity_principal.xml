@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrincipalActivity"
-    android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".PrincipalActivity">
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:id="@+id/btnSair"
-        android:text="Sair"
-        android:textSize="18sp"
-        android:backgroundTint="@color/purple"
-        app:cornerRadius = "20dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAdicionar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="@color/purple" />
 
-</LinearLayout>
+</RelativeLayout>

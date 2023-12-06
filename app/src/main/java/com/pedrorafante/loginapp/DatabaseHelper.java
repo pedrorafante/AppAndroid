@@ -45,11 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        onCreate(db);
     }
 
-    public void insertUser(){
+    public void insertUser(String usuario, String senha){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("user", "pedro");
-        contentValues.put("senha", "1234");
+        contentValues.put("user", usuario);
+        contentValues.put("senha", senha);
         MyDatabase.insert("usuario", null, contentValues);
     }
 

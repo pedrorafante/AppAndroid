@@ -7,22 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class PrincipalActivity extends AppCompatActivity {
 
-    Button btnSair;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        btnSair = findViewById(R.id.btnSair);
-        btnSair.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton = findViewById(R.id.btnAdicionar);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
