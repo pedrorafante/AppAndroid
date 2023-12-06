@@ -34,12 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "  )";
         try {
             sqLiteDatabase.execSQL(tableUser);
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("user", "pedro");
-            contentValues.put("senha", "1234");
-            sqLiteDatabase.insert("usuario", null, contentValues);
-            insertUser();
         }catch (SQLException e){
             Log.e("DB_LOG", "onCreate: " + e.getLocalizedMessage());
         }
@@ -47,8 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop Table if exists usuario");
-        onCreate(db);
+//        db.execSQL("drop Table if exists usuario");
+//        onCreate(db);
     }
 
     public void insertUser(){
