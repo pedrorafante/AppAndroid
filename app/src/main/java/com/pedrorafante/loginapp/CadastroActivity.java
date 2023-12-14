@@ -2,6 +2,7 @@ package com.pedrorafante.loginapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,8 @@ public class CadastroActivity extends AppCompatActivity {
                 if (checkAllFields() && checkPassword() && checkUsername()) {
                     databaseHelper.insertUser(usuario.getText().toString(), senha.getText().toString());
                     Toast.makeText(CadastroActivity.this, "Usuário Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
+                    Intent principalAct = new Intent();
+                    setResult(RESULT_OK, principalAct);
                     finish();
                 }
             }

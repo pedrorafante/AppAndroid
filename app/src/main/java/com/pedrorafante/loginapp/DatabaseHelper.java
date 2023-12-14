@@ -1,5 +1,6 @@
 package com.pedrorafante.loginapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,8 +8,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -73,4 +79,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressLint("Range")
+    public List<Usuario> getAllUsuario(){
+        List<Usuario> listUsuario = new ArrayList<Usuario>();
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        Cursor cursor = MyDatabase.rawQuery("Select * from usuario", null);
+
+        cursor.moveToFirst();
+        do {
+            Usuario usuario = new Usuario();
+            usuario.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            usuario.setUser(cursor.getString(cursor.getColumnIndex("user")));
+            usuario.setSenha(cursor.getString(cursor.getColumnIndex("senha")));
+
+            listUsuario.add(usuario);
+        }while (cursor.moveToNext());
+
+        cursor.close();
+        MyDatabase.close();
+
+        return listUsuario;
+    }
+
+    public void deleteUser(int id) {
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        try{
+            MyDatabase.delete("usuario", "id = ?", new String[]{String.valueOf(id)});
+
+        } catch (SQLException e){
+            Log.e("DELETE", "Erro ao excluir" + e.getMessage());
+        } finally {
+            MyDatabase.close();
+        }
+
+    }
 }
