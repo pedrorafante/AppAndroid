@@ -16,26 +16,50 @@ public class CadastroActivity extends AppCompatActivity {
     EditText confirmacaoSenha;
     Button cadastrarButton;
     DatabaseHelper databaseHelper;
+    Usuario user;
+    boolean editar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+        //Pega a intent de outra activity
+        Intent it = getIntent();
+        user = new Usuario();
 
         usuario = findViewById(R.id.cadastro_usuario);
         senha = findViewById(R.id.cadastro_senha);
         confirmacaoSenha = findViewById(R.id.cadastro_senha_confirm);
 
         cadastrarButton = findViewById(R.id.cadastro_btnCadastrar);
-
         databaseHelper = new DatabaseHelper(this);
+
+
+        //Recuperei a string da outra activity
+        editar = it.getBooleanExtra("editar",false);
+        if (editar){
+            cadastrarButton.setText("Atualizar");
+            int id = it.getIntExtra("id", 0);
+            user = databaseHelper.getUsuario(id);
+            usuario.setText(user.getUser());
+            senha.setText(user.getSenha());
+            confirmacaoSenha.setText(user.getSenha());
+        } else {
+            cadastrarButton.setText("Cadastrar");
+        }
 
         cadastrarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkAllFields() && checkPassword() && checkUsername()) {
-                    databaseHelper.insertUser(usuario.getText().toString(), senha.getText().toString());
-                    Toast.makeText(CadastroActivity.this, "Usuário Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
+                    if (editar){
+                        databaseHelper.atualizarRegistro(user.getId(), usuario.getText().toString(), senha.getText().toString());
+                        Toast.makeText(CadastroActivity.this, "Usuário Atualizado com Sucesso!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        databaseHelper.insertUser(usuario.getText().toString(), senha.getText().toString());
+                        Toast.makeText(CadastroActivity.this, "Usuário Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
+
+                    }
                     Intent principalAct = new Intent();
                     setResult(RESULT_OK, principalAct);
                     finish();

@@ -68,6 +68,10 @@ public class PrincipalActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(position -> {
             Usuario usuarioSelecionado = itemList.get(position);
+            Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
+            intent.putExtra("editar", true);
+            intent.putExtra("id", usuarioSelecionado.getId());
+            cadastroLauncher.launch(intent);
             Toast.makeText(this, "VOCE CLICOU NO USUARIO de ID: " + usuarioSelecionado.getId() + " - " + usuarioSelecionado.getUser(), Toast.LENGTH_LONG ).show();
         });
     }

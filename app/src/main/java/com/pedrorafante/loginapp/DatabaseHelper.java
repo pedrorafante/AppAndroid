@@ -111,6 +111,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } finally {
             MyDatabase.close();
         }
+    }
 
+    @SuppressLint("Range")
+    public Usuario getUsuario(int id){
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        Usuario usuario = new Usuario();
+        Cursor cursor = MyDatabase.rawQuery("Select * from usuario where id = ?", new String[]{Integer.toString(id)});
+        if(cursor.moveToFirst()){
+            usuario.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            usuario.setUser(cursor.getString(cursor.getColumnIndex("user")));
+            usuario.setSenha(cursor.getString(cursor.getColumnIndex("senha")));
+        }
+        return usuario;
+    }
+
+    public void atualizarRegistro(int id, String username, String password) {
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("user", username);
+        contentValues.put("senha", password);
+        MyDatabase.update("usuario", contentValues,"id = ? ", new String[]{String.valueOf(id)} );
     }
 }
